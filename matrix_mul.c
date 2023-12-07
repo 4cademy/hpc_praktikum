@@ -1,14 +1,13 @@
 #include <stdio.h>
-#include <time.h>
+#include <sys/time.h>
 #include <stdlib.h>
 
 int main() {
-    int n = 1024;
+    int n = 2048;
     printf("Time in [sec] for %ix%i:\n",n,n);
     int evals = 10;
-    clock_t start, stop;
-    double time_taken = 0;
-    double total_time = 0;
+    struct timeval start, end;
+    long double avg_time = 0;
 
     float* mat1 = (float*) malloc(n*n*sizeof(float));
     float* mat2 = (float*) malloc(n*n*sizeof(float));
@@ -17,14 +16,14 @@ int main() {
     
     for (int i = 0; i < n; i++) {
         for(int j = 0; j < n; j++) {
-            mat1[i*n+j] = rand();
-            mat2[i*n+j] = rand();
+            mat1[i*n+j] = (float)(i+j);
+            mat2[i*n+j] = (float)(i+j);
         }
     }
 
     for (int e = 0; e < evals; e++) {
         // actual matrix multiplication
-        start = clock();
+        gettimeofday(&start, NULL);
         for (int i = 0; i < n; i++) {
             for(int j = 0; j < n; j++) {
                 mat_out[i*n+j] = mat1[i*n] * mat2[j];
@@ -33,18 +32,16 @@ int main() {
                 }
             }
         }
-        stop = clock();
-        time_taken = (double)(stop - start) / CLOCKS_PER_SEC;
-        total_time += time_taken;
-        printf("Time %i: %f\n", e, time_taken);
+        gettimeofday(&end, NULL);
+        long long microseconds = ((end.tv_sec - start.tv_sec) * 1000*1000 + end.tv_usec - start.tv_usec);
+        printf("Time %i in us: %lld\n", e, microseconds);
+        avg_time += (long double)(microseconds)/evals;
     }
-    double avg_time = total_time/evals;
-    printf("Avg. time: %f\n", avg_time);
-    double tmp = (n/1000);
-    double gf_ops = tmp*tmp*(2*n-1);
-    printf("Mega-floating point operations: %f\n", gf_ops);
-    double mflops = gf_ops/avg_time;
-    printf("MFLOPS: %f\n", mflops);
+    printf("Avg. time: %Lf\n", avg_time);
+    long long no_fops = n * n * (2 * n - 1);
+    printf("floating point operations: %lld\n", no_fops);
+    long double mega_flops = no_fops / avg_time;
+    printf("MFLOPS: %Lf\n", mega_flops);
 
     free(mat1);
     free(mat2);
