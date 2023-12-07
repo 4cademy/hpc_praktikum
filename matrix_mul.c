@@ -2,8 +2,19 @@
 #include <sys/time.h>
 #include <stdlib.h>
 
+void normal_matrix_mul(const float* mat1, const float* mat2, float* mat_out, int n) {
+    for (int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            mat_out[i*n+j] = mat1[i*n] * mat2[j];
+            for (int k = 1; k < n; k++) {
+                mat_out[i*n+j] += mat1[i*n+k] * mat2[k*n+j];
+            }
+        }
+    }
+}
+
 int main() {
-    int n = 2048;
+    int n = 256;
     printf("Time in [sec] for %ix%i:\n",n,n);
     int evals = 10;
     struct timeval start, end;
@@ -24,14 +35,7 @@ int main() {
     for (int e = 0; e < evals; e++) {
         // actual matrix multiplication
         gettimeofday(&start, NULL);
-        for (int i = 0; i < n; i++) {
-            for(int j = 0; j < n; j++) {
-                mat_out[i*n+j] = mat1[i*n] * mat2[j];
-                for (int k = 1; k < n; k++) {
-                    mat_out[i*n+j] += mat1[i*n+k] * mat2[k*n+j];
-                }
-            }
-        }
+        normal_matrix_mul(mat1, mat2, mat_out, n);
         gettimeofday(&end, NULL);
         long long microseconds = ((end.tv_sec - start.tv_sec) * 1000*1000 + end.tv_usec - start.tv_usec);
         printf("Time %i in us: %lld\n", e, microseconds);
