@@ -13,6 +13,30 @@ void normal_matrix_mul(const float* mat1, const float* mat2, float* mat_out, int
     }
 }
 
+void loop_unrolling(const float* mat1, const float* mat2, float* mat_out, int n) {
+    for (int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            for (int k = 0; k < n; k+=4) {
+                mat_out[i*n+j] += mat1[i*n+k] * mat2[k*n+j];
+                mat_out[i*n+j] += mat1[i*n+(k+1)] * mat2[(k+1)*n+j];
+                mat_out[i*n+j] += mat1[i*n+(k+2)] * mat2[(k+2)*n+j];
+                mat_out[i*n+j] += mat1[i*n+(k+3)] * mat2[(k+3)*n+j];
+            }
+        }
+    }
+}
+
+void loop_swap(const float* mat1, const float* mat2_inversed, float* mat_out, int n) {
+    for (int j = 0; j < n; j++) {
+        for(int i = 0; i < n; i++) {
+            mat_out[i*n+j] = mat1[i*n] * mat2_inversed[i*n];
+            for (int k = 1; k < n; k++) {
+                mat_out[i*n+j] += mat1[i*n+k] * mat2_inversed[i*n+k];
+            }
+        }
+    }
+}
+
 int main() {
     int n = 256;
     printf("Time in [sec] for %ix%i:\n",n,n);
