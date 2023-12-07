@@ -26,19 +26,19 @@ void loop_unrolling(const float* mat1, const float* mat2, float* mat_out, int n)
     }
 }
 
-void loop_swap(const float* mat1, const float* mat2_inversed, float* mat_out, int n) {
+void loop_swap(const float* mat1, const float* mat2_inv, float* mat_out, int n) {
     for (int j = 0; j < n; j++) {
         for(int i = 0; i < n; i++) {
-            mat_out[i*n+j] = mat1[i*n] * mat2_inversed[i*n];
+            mat_out[i*n+j] = mat1[i*n] * mat2_inv[i*n];
             for (int k = 1; k < n; k++) {
-                mat_out[i*n+j] += mat1[i*n+k] * mat2_inversed[i*n+k];
+                mat_out[i*n+j] += mat1[i*n+k] * mat2_inv[i*n+k];
             }
         }
     }
 }
 
 int main() {
-    int n = 256;
+    int n = 128;
     printf("Time in [sec] for %ix%i:\n",n,n);
     int evals = 10;
     struct timeval start, end;
@@ -46,6 +46,7 @@ int main() {
 
     float* mat1 = (float*) malloc(n*n*sizeof(float));
     float* mat2 = (float*) malloc(n*n*sizeof(float));
+    float* mat2_inv = (float*) malloc(n*n*sizeof(float));
     float* mat_out = malloc(n*n*sizeof(float));
 
     
@@ -53,6 +54,7 @@ int main() {
         for(int j = 0; j < n; j++) {
             mat1[i*n+j] = (float)(i+j);
             mat2[i*n+j] = (float)(i+j);
+            mat2_inv[j*n+i] = (float)(i+j);
         }
     }
 
@@ -60,6 +62,9 @@ int main() {
         // actual matrix multiplication
         gettimeofday(&start, NULL);
         normal_matrix_mul(mat1, mat2, mat_out, n);
+        //loop_unrolling(mat1, mat2, mat_out, n);
+        //loop_swap(mat1, mat2_inv, mat_out, n);
+
         gettimeofday(&end, NULL);
         long long microseconds = ((end.tv_sec - start.tv_sec) * 1000*1000 + end.tv_usec - start.tv_usec);
         printf("Time %i in us: %lld\n", e, microseconds);
