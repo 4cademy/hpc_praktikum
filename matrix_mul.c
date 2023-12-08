@@ -95,7 +95,7 @@ void loop_swap(const float* mat1, const float* mat2_inv, float* mat_out, int n) 
 }
 
 int main(int argc, char* argv[]) {
-    int n = 128;
+    int n = 512;
     printf("Time in [sec] for %ix%i:\n",n,n);
     int evals = 1;
     struct timeval start, end;
@@ -123,13 +123,13 @@ int main(int argc, char* argv[]) {
             }
         }
         // actual matrix multiplication
-        int tiling_factor = 16;
+        int tiling_factor = 4;
         int tile_size = n/tiling_factor;
         gettimeofday(&start, NULL);
         // tiling_matrix_mul(mat1, mat2, mat_out, n, tiling_factor, tile_size);
         normal_matrix_mul(mat1, mat2, mat_out, n);
-        //loop_unrolling(mat1, mat2, mat_out, n);
-        //loop_swap(mat1, mat2_inv, mat_out, n);
+        // loop_unrolling(mat1, mat2, mat_out, n);
+        // loop_swap(mat1, mat2_inv, mat_out, n);
 
         gettimeofday(&end, NULL);
         long long microseconds = ((end.tv_sec - start.tv_sec) * 1000*1000 + end.tv_usec - start.tv_usec);
