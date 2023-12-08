@@ -35,6 +35,7 @@
 *.i*86
 *.x86_64
 *.hex
+matrix_mul
 
 # Debug files
 *.dSYM/
@@ -51,3 +52,6 @@ Module.symvers
 Mkfile.old
 dkms.conf
 /CMakeLists.txt
+
+# Local files
+.idea/
