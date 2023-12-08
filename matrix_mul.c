@@ -37,7 +37,7 @@ void loop_swap(const float* mat1, const float* mat2_inv, float* mat_out, int n) 
     }
 }
 
-int main() {
+int main(int argc, char* argv[]) {
     int n = 128;
     printf("Time in [sec] for %ix%i:\n",n,n);
     int evals = 10;
