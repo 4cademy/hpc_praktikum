@@ -73,7 +73,7 @@ void tiling_matrix_mul(const float* mat1, const float* mat2, float* mat_out, int
 int main() {
     int n = 256;
     printf("Time in [sec] for %ix%i:\n",n,n);
-    int evals = 10;
+    int evals = 1;
     struct timeval start, end;
     long double avg_time = 0;
 
@@ -108,7 +108,8 @@ int main() {
         avg_time += (long double)(microseconds)/evals;
     }
     printf("Avg. time: %Lf\n", avg_time);
-    long long no_fops = n * n * (2 * n - 1);
+    long long tmp = (long long)n;
+    long long no_fops = tmp * tmp * (2 * tmp - 1);
     printf("floating point operations: %lld\n", no_fops);
     long double mega_flops = no_fops / avg_time;
     printf("MFLOPS: %Lf\n", mega_flops);
