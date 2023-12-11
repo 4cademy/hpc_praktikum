@@ -11,5 +11,5 @@
 for i in 0 1 2 3
 do
     echo "Running $i"
-    ./matrix_mul $i >> matmul.txt 2>&1
+    ./cmake-build-debug/hpc_praktikum $i >> matmul.txt 2>&1
 done
