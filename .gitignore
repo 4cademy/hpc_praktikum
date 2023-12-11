@@ -51,7 +51,6 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
-/CMakeLists.txt
 
 # Local files
 .idea/
