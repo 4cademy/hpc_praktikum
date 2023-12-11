@@ -144,7 +144,6 @@ int test_loop_swap(){
     int n = 8;
     float* mat1 = (float*) malloc(n*n*sizeof(float));
     float* mat2 = (float*) malloc(n*n*sizeof(float));
-    float* mat2_inv = (float*) malloc(n*n*sizeof(float));
     float* mat_out = malloc(n*n*sizeof(float));
     float* mat2_golden = (float*) malloc(n*n*sizeof(float));
 
@@ -152,20 +151,18 @@ int test_loop_swap(){
         for(int j = 0; j < n; j++) {
             mat1[i*n+j] = (float)(i+j);
             mat2[i*n+j] = (float)(i+j);
-            mat2_inv[j*n+i] = (float)(i+j);
             mat_out[i*n+j] = 0;
         }
     }
 
     normal_matrix_mul(mat1, mat2, mat2_golden, n);
-    loop_swap(mat1, mat2_inv, mat_out, n);
+    loop_swap(mat1, mat2, mat_out, n);
 
     int is_equal = check_equal(mat2_golden, mat_out, n);
 
 
     free(mat1);
     free(mat2);
-    free(mat2_inv);
     free(mat_out);
     free(mat2_golden);
 

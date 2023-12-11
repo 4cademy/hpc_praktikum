@@ -37,7 +37,6 @@ int main(int argc, char* argv[]) {
 
     float* mat1 = (float*) malloc(n*n*sizeof(float));
     float* mat2 = (float*) malloc(n*n*sizeof(float));
-    float* mat2_inv = (float*) malloc(n*n*sizeof(float));
     float* mat_out = malloc(n*n*sizeof(float));
 
     
@@ -45,7 +44,6 @@ int main(int argc, char* argv[]) {
         for(int j = 0; j < n; j++) {
             mat1[i*n+j] = (float)(i+j);
             mat2[i*n+j] = (float)(i+j);
-            mat2_inv[j*n+i] = (float)(i+j);
         }
     }
 
@@ -73,7 +71,7 @@ int main(int argc, char* argv[]) {
                 loop_unrolling(mat1, mat2, mat_out, n);
                 break;
             case LOOP_SWAP:
-                loop_swap(mat1, mat2_inv, mat_out, n);
+                loop_swap(mat1, mat2, mat_out, n);
                 break;
             case TILING:
                 tiling_matrix_mul(mat1, mat2, mat_out, n, tiling_factor, tile_size);
@@ -99,7 +97,6 @@ int main(int argc, char* argv[]) {
 
     free(mat1);
     free(mat2);
-    free(mat2_inv);
     free(mat_out);
 
     return 0;
