@@ -22,28 +22,7 @@ void tiling_matrix_mul(const float* mat1, const float* mat2, float* mat_out, int
     float* mat2_tile = malloc(tile_size*tile_size*sizeof(float));
     for (int tx_out = 0; tx_out < tiling_factor; tx_out++) {
         for (int ty_out = 0; ty_out < tiling_factor; ty_out++) {
-            // copy tile from mat1
-            for (int i = 0; i < tile_size; i++) {
-                for (int j = 0; j < tile_size; j++) {
-                    mat1_tile[i*tile_size+j] = mat1[(((ty_out*tile_size)+i)*n)+((0 * tile_size) + j)];
-                }
-            }
-
-            // copy tile from mat2
-            for (int i = 0; i < tile_size; i++) {
-                for (int j = 0; j < tile_size; j++) {
-                    mat2_tile[i*tile_size+j] = mat2[(((0 * tile_size) + i) * n) + ((tx_out * tile_size) + j)];
-                }
-            }
-            // multiply tiles
-            normal_matrix_mul(mat1_tile, mat2_tile, result_tile, tile_size);
-            // copy result tile to mat_out
-            for (int i = 0; i < tile_size; i++) {
-                for (int j = 0; j < tile_size; j++) {
-                    mat_out[(((ty_out*tile_size)+i)*n)+((tx_out * tile_size) + j)] += result_tile[i*tile_size+j];
-                }
-            }
-            for (int tile_index = 1; tile_index < tiling_factor; tile_index++){
+            for (int tile_index = 0; tile_index < tiling_factor; tile_index++){
                 // copy tile from mat1
                 for (int i = 0; i < tile_size; i++) {
                     for (int j = 0; j < tile_size; j++) {
