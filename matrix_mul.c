@@ -15,24 +15,41 @@ const char * function_names[] = {
         "tiling_matrix_mul"
 };
 
+int compare( const void* a, const void* b)
+{
+    long double int_a = * ( (long double*) a );
+    long double int_b = * ( (long double*) b );
+
+    if ( int_a == int_b ) return 0;
+    else if ( int_a < int_b ) return -1;
+    else return 1;
+}
+
+
 int main(int argc, char* argv[]) {
-    if (argc != 2) {
-        printf("Usage: %s <matrix size>\n", argv[0]);
+    if (argc != 3) {
+        printf("Usage: %s <function number> <matrix size>\n", argv[0]);
         return 1;
     }
     if (atoi(argv[1]) < 0 || atoi(argv[1]) > 4){
-        printf("Matrix size wrong!\n");
+        printf("Use a function through the defined numbers!\n");
         return 1;
     }
-    int function;
-    printf("argv[1]: %s\n", argv[1]);
+    if (atoi(argv[2]) < 0 || atoi(argv[2])%2 != 0){
+        printf("Wrong Matrix size <n> needs to fulfill: 2^x = n !\n");
+        return 1;
+    }
+
+    int function, matrix_size;
+    //printf("argv[1]: %s\n", argv[1]);
     function = atoi(argv[1]);
-    printf("function: %i\n", function);
+    //printf("function: %i\n", function);
+    matrix_size= atoi(argv[2]);
 
-
-    int n = 512;
-    int evals = 1;
+    int n = matrix_size;
+    int evals = 10;
     struct timeval start, end;
+    long double measures[10] = {0};
     long double avg_time = 0;
 
     float* mat1 = (float*) malloc(n*n*sizeof(float));
@@ -84,16 +101,29 @@ int main(int argc, char* argv[]) {
 
         gettimeofday(&end, NULL);
         long long microseconds = ((end.tv_sec - start.tv_sec) * 1000*1000 + end.tv_usec - start.tv_usec);
-        printf("Time %i in us: %lld\n", e, microseconds);
+        //printf("Time %i in us: %lld\n", e, microseconds);
         avg_time += (long double)(microseconds)/evals;
+
+        long long tmp = (long long)n;
+        long long no_fops = tmp * tmp * (2 * tmp - 1);
+        measures[e] = (long double) no_fops / microseconds;
+
     }
     printf("Function: %s\n", function_names[function]);
-    printf("Avg. time: %Lf\n", avg_time);
+    // printf("Avg. time: %Lf\n", avg_time);
     long long tmp = (long long)n;
     long long no_fops = tmp * tmp * (2 * tmp - 1);
-    printf("floating point operations: %lld\n", no_fops);
-    long double mega_flops = no_fops / avg_time;
-    printf("MFLOPS: %Lf\n\n", mega_flops);
+    //printf("floating point operations: %lld\n", no_fops);
+    //long double mega_flops = no_fops / avg_time;
+    // printf("MFLOPS: %Lf\n\n", mega_flops);
+
+    qsort( measures, 10, sizeof(long double), compare );
+    printf("n x n Matrix mit n = %i\n", n);
+    printf("Messungen: %i\n", evals);
+    printf("in MFLOPS:\n");
+    printf("Min: %Lf\n", measures[0]);
+    printf("Median: %Lf\n", measures[5]);
+    printf("Max: %Lf\n\n", measures[9]);
 
     free(mat1);
     free(mat2);
