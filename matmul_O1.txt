@@ -1,0 +1,160 @@
+Function: normal_matrix_mul
+n x n Matrix mit n = 128
+Messungen: 10
+in MFLOPS:
+Min: 1024.753495
+Median: 1066.884576
+Max: 1069.068577
+
+Function: normal_matrix_mul
+n x n Matrix mit n = 256
+Messungen: 10
+in MFLOPS:
+Min: 960.668273
+Median: 994.975816
+Max: 995.567394
+
+Function: normal_matrix_mul
+n x n Matrix mit n = 512
+Messungen: 10
+in MFLOPS:
+Min: 948.004157
+Median: 953.695001
+Max: 953.878182
+
+Function: normal_matrix_mul
+n x n Matrix mit n = 1024
+Messungen: 10
+in MFLOPS:
+Min: 576.636108
+Median: 589.267316
+Max: 591.550173
+
+Function: normal_matrix_mul
+n x n Matrix mit n = 2048
+Messungen: 10
+in MFLOPS:
+Min: 438.218412
+Median: 451.029422
+Max: 466.464462
+
+Function: loop_unrolling
+n x n Matrix mit n = 128
+Messungen: 10
+in MFLOPS:
+Min: 2711.174562
+Median: 2734.240838
+Max: 2761.348315
+
+Function: loop_unrolling
+n x n Matrix mit n = 256
+Messungen: 10
+in MFLOPS:
+Min: 2369.217970
+Median: 2375.099007
+Max: 2378.979612
+
+Function: loop_unrolling
+n x n Matrix mit n = 512
+Messungen: 10
+in MFLOPS:
+Min: 2174.913116
+Median: 2175.883682
+Max: 2177.544473
+
+Function: loop_unrolling
+n x n Matrix mit n = 1024
+Messungen: 10
+in MFLOPS:
+Min: 593.824008
+Median: 624.733523
+Max: 627.361466
+
+Function: loop_unrolling
+n x n Matrix mit n = 2048
+Messungen: 10
+in MFLOPS:
+Min: 460.974243
+Median: 477.444899
+Max: 521.577105
+
+Function: loop_swap
+n x n Matrix mit n = 128
+Messungen: 10
+in MFLOPS:
+Min: 1060.654989
+Median: 1064.438217
+Max: 1066.067874
+
+Function: loop_swap
+n x n Matrix mit n = 256
+Messungen: 10
+in MFLOPS:
+Min: 991.059631
+Median: 991.999052
+Max: 992.469431
+
+Function: loop_swap
+n x n Matrix mit n = 512
+Messungen: 10
+in MFLOPS:
+Min: 934.043788
+Median: 948.232096
+Max: 950.878150
+
+Function: loop_swap
+n x n Matrix mit n = 1024
+Messungen: 10
+in MFLOPS:
+Min: 504.988414
+Median: 572.750468
+Max: 575.460402
+
+Function: loop_swap
+n x n Matrix mit n = 2048
+Messungen: 10
+in MFLOPS:
+Min: 473.679169
+Median: 493.268206
+Max: 502.905726
+
+Function: tiling_matrix_mul
+n x n Matrix mit n = 128
+Messungen: 10
+in MFLOPS:
+Min: 1592.802135
+Median: 1598.286151
+Max: 1605.040338
+
+Function: tiling_matrix_mul
+n x n Matrix mit n = 256
+Messungen: 10
+in MFLOPS:
+Min: 1217.600931
+Median: 1221.598307
+Max: 1222.267090
+
+Function: tiling_matrix_mul
+n x n Matrix mit n = 512
+Messungen: 10
+in MFLOPS:
+Min: 1050.309061
+Median: 1061.261341
+Max: 1062.287084
+
+Function: tiling_matrix_mul
+n x n Matrix mit n = 1024
+Messungen: 10
+in MFLOPS:
+Min: 983.385740
+Median: 992.237098
+Max: 993.736043
+
+Function: tiling_matrix_mul
+n x n Matrix mit n = 2048
+Messungen: 10
+in MFLOPS:
+Min: 605.710527
+Median: 955.892266
+Max: 959.481843
+
