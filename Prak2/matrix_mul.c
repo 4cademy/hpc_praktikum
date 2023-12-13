@@ -55,6 +55,11 @@ int main(int argc, char* argv[]) {
 
     float* mat1 = (float*) malloc(n*n*sizeof(float));
     float* mat2 = (float*) malloc(n*n*sizeof(float));
+    int rank, size;
+    MPI_Init(NULL,NULL);
+    MPI_Comm_rank(MPI_COMM_WORLD,&rank);
+    MPI_Comm_size(MPI_COMM_WORLD,&size);
+    printf("rank macht matrix multiplikation: %i\n", rank);
     float* mat_out = malloc(n*n*sizeof(float));
 
     
@@ -130,5 +135,6 @@ int main(int argc, char* argv[]) {
     free(mat2);
     free(mat_out);
 
+    MPI_Finalize();
     return 0;
 }
