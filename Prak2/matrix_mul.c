@@ -3,6 +3,7 @@
 #include <sys/time.h>
 #include <stdlib.h>
 #include "functions.h"
+#include <math.h>
 
 #define NORMAL 0
 #define LOOP_UNROLLING 1
@@ -48,21 +49,13 @@ int main(int argc, char* argv[]) {
     matrix_size= atoi(argv[2]);
 
     int n = matrix_size;
-    int evals = 10;
+    int evals = 1;
     struct timeval start, end;
     long double measures[10] = {0};
     long double avg_time = 0;
 
     float* mat1 = (float*) malloc(n*n*sizeof(float));
     float* mat2 = (float*) malloc(n*n*sizeof(float));
-    int rank, size;
-    MPI_Init(NULL,NULL);
-    MPI_Comm_rank(MPI_COMM_WORLD,&rank);
-    MPI_Comm_size(MPI_COMM_WORLD,&size);
-    printf("rank macht matrix multiplikation: %i\n", rank);
-    float* mat_out = malloc(n*n*sizeof(float));
-
-    
     for (int i = 0; i < n; i++) {
         for(int j = 0; j < n; j++) {
             mat1[i*n+j] = (float)(i+j);
@@ -70,52 +63,57 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    for (int e = 0; e < evals; e++) {
-        // reset output matrix
-        for (int i = 0; i < n; i++) {
-            for(int j = 0; j < n; j++) {
-                mat_out[i*n+j] = 0;
-            }
-        }
-        // actual matrix multiplication
-        int tiling_factor = 4;
-        int tile_size = n/tiling_factor;
+    int rank, size;
+
+    // MPI section
+    MPI_Init(NULL,NULL);
+    MPI_Comm_rank(MPI_COMM_WORLD,&rank);
+    MPI_Comm_size(MPI_COMM_WORLD,&size);
+    int start_mat_index = floor(n*n / size * rank);
+    int end_mat_index;
+    if (rank == size-1) {
+        end_mat_index = n * n - 1;
+    } else {
+        end_mat_index = floor(n*n / size * (rank+1))-1;
+    }
+    int sequence_length = end_mat_index - start_mat_index + 1;
+
+    float* mat_out;
+    if (rank == 0) {
         gettimeofday(&start, NULL);
-        // tiling_matrix_mul(mat1, mat2, mat_out, n, tiling_factor, tile_size);
-        // normal_matrix_mul(mat1, mat2, mat_out, n);
-        // loop_unrolling(mat1, mat2, mat_out, n);
-        // loop_swap(mat1, mat2_inv, mat_out, n);
+        printf("start time: %ld\n", start.tv_sec*1000*1000 + start.tv_usec);
+        mat_out = malloc(n*n*sizeof(float));
+    } else {
+        mat_out = malloc(sequence_length*sizeof(float));
+    }
 
-        switch (function) {
-            case NORMAL:
-                normal_matrix_mul(mat1, mat2, mat_out, n);
-                break;
-            case LOOP_UNROLLING:
-                loop_unrolling(mat1, mat2, mat_out, n);
-                break;
-            case LOOP_SWAP:
-                loop_swap(mat1, mat2, mat_out, n);
-                break;
-            case TILING:
-                tiling_matrix_mul(mat1, mat2, mat_out, n, tiling_factor, tile_size);
-                break;
-            default:
-                printf("Invalid function!\n");
-                return 1;
+    mpi_mat_mul(mat1, mat2, n, start_mat_index, end_mat_index, mat_out);
+
+    if (rank == 0) {
+        printf("rank %i hat fertig gerechnet\n", rank);
+        for (int i = 1; i < size; i++) {
+            int start_for_rank = floor(n*n / size * i);
+            int end_for_rank;
+            if (i == size-1) {
+                end_for_rank = n * n - 1;
+            } else {
+                end_for_rank = floor(n*n / size * (i+1))-1;
+            }
+            int sequence_length_for_rank = end_for_rank - start_for_rank + 1;
+            MPI_Recv(&mat_out[start_for_rank], sequence_length_for_rank, MPI_FLOAT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
         }
-
-
         gettimeofday(&end, NULL);
+        printf("end time: %ld\n", end.tv_sec*1000*1000 + end.tv_usec);
         long long microseconds = ((end.tv_sec - start.tv_sec) * 1000*1000 + end.tv_usec - start.tv_usec);
-        //printf("Time %i in us: %lld\n", e, microseconds);
-        avg_time += (long double)(microseconds)/evals;
-
+        printf("time: %lld\n", microseconds);
         long long tmp = (long long)n;
         long long no_fops = tmp * tmp * (2 * tmp - 1);
-        measures[e] = (long double) no_fops / microseconds;
-
+        long double perf = no_fops / microseconds;
+        printf("MFLOPS: %Lf\n", perf);
+    } else {
+        MPI_Send(mat_out, sequence_length, MPI_FLOAT, 0, 0, MPI_COMM_WORLD);
     }
-    printf("Function: %s\n", function_names[function]);
+
     // printf("Avg. time: %Lf\n", avg_time);
     long long tmp = (long long)n;
     long long no_fops = tmp * tmp * (2 * tmp - 1);
@@ -123,6 +121,7 @@ int main(int argc, char* argv[]) {
     //long double mega_flops = no_fops / avg_time;
     // printf("MFLOPS: %Lf\n\n", mega_flops);
 
+    /*
     qsort( measures, 10, sizeof(long double), compare );
     printf("n x n Matrix mit n = %i\n", n);
     printf("Messungen: %i\n", evals);
@@ -130,6 +129,7 @@ int main(int argc, char* argv[]) {
     printf("Min: %Lf\n", measures[0]);
     printf("Median: %Lf\n", measures[5]);
     printf("Max: %Lf\n\n", measures[9]);
+    */
 
     free(mat1);
     free(mat2);
