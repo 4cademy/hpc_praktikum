@@ -37,6 +37,7 @@
 *.hex
 matrix_mul
 matmul.txt
+cmake-build-debug/
 
 # Debug files
 *.dSYM/
