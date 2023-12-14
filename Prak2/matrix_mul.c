@@ -120,7 +120,7 @@ int main(int argc, char* argv[]) {
         printf("Messungen: %i\n", evals);
         printf("in MFLOPS:\n");
         printf("Min: %Lf\n", measures[0]);
-        printf("Median: %Lf\n", measures[5]);
+        printf("Median: %Lf\n", (measures[4] + measures[5])/2);
         printf("Max: %Lf\n\n", measures[9]);
     }
 
