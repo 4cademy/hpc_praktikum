@@ -85,7 +85,7 @@ int main(int argc, char* argv[]) {
 
     printf("\n");
 
-    normal_matrix_mul(mat1, mat2, mat_out, n);
+    normal_matrix_mul(mat1, mat2, mat_golden, n);
     bool is_equal = true;
     for (int i = 0; i < n; i++) {
         for(int j = 0; j < n; j++) {
