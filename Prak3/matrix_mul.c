@@ -57,8 +57,6 @@ int main(int argc, char* argv[]) {
             }
         }
         // actual matrix multiplication
-        int tiling_factor = 4;
-        int tile_size = n/tiling_factor;
         gettimeofday(&start, NULL);
 
         openmp_matrix_mul(mat1, mat2, mat_out, n);
