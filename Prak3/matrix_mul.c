@@ -78,27 +78,6 @@ int main(int argc, char* argv[]) {
     printf("Median: %Lf\n", measures[5]);
     printf("Max: %Lf\n\n", measures[9]);
 
-
-
-
-    printf("\n");
-
-    normal_matrix_mul(mat1, mat2, mat_golden, n);
-    bool is_equal = true;
-    for (int i = 0; i < n; i++) {
-        for(int j = 0; j < n; j++) {
-            if (mat_out[i*n+j] != mat_golden[i*n+j]) {
-                is_equal = false;
-                break;
-            }
-        }
-    }
-    if (is_equal) {
-        printf("Matrix multiplication was correct\n");
-    } else {
-        printf("Matrix multiplication was incorrect\n");
-    }
-
     free(mat1);
     free(mat2);
     free(mat_out);
