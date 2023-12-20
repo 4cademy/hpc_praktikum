@@ -1,0 +1,134 @@
+
+Prozesse: 32
+Knoten: 1
+srun: job 1643059 queued and waiting for resources
+srun: job 1643059 has been allocated resources
+n x n Matrix mit n = 4096
+Messungen: 10
+in MFLOPS:
+Min: 2665.267199
+Median: 2730.475520
+Max: 2745.978844
+
+Prozesse: 32
+Knoten: 2
+srun: job 1655854 queued and waiting for resources
+srun: job 1655854 has been allocated resources
+n x n Matrix mit n = 4096
+Messungen: 10
+in MFLOPS:
+Min: 6369.939196
+Median: 6682.352242
+Max: 7015.927376
+
+Prozesse: 48
+Knoten: 1
+srun: job 1662235 queued and waiting for resources
+srun: job 1662235 has been allocated resources
+n x n Matrix mit n = 4096
+Messungen: 10
+in MFLOPS:
+Min: 9940.628166
+Median: 9964.048722
+Max: 10041.292445
+
+Prozesse: 48
+Knoten: 2
+srun: job 1662340 queued and waiting for resources
+srun: job 1662340 has been allocated resources
+n x n Matrix mit n = 4096
+Messungen: 10
+in MFLOPS:
+Min: 8962.016784
+Median: 9016.808693
+Max: 9764.007509
+
+Prozesse: 64
+Knoten: 1
+srun: job 1656745 queued and waiting for resources
+srun: job 1656745 has been allocated resources
+n x n Matrix mit n = 4096
+Messungen: 10
+in MFLOPS:
+Min: 13354.787235
+Median: 13363.128391
+Max: 13419.367766
+
+Prozesse: 64
+Knoten: 2
+srun: job 1656749 queued and waiting for resources
+srun: job 1656749 has been allocated resources
+n x n Matrix mit n = 4096
+Messungen: 10
+in MFLOPS:
+Min: 11253.611897
+Median: 11884.119054
+Max: 12074.265331
+
+Prozesse: 80
+Knoten: 1
+srun: job 1656782 queued and waiting for resources
+srun: job 1656782 has been allocated resources
+n x n Matrix mit n = 4096
+Messungen: 10
+in MFLOPS:
+Min: 16512.876915
+Median: 16610.299377
+Max: 16798.721481
+
+Prozesse: 80
+Knoten: 2
+srun: job 1656819 queued and waiting for resources
+srun: job 1656819 has been allocated resources
+n x n Matrix mit n = 4096
+Messungen: 10
+in MFLOPS:
+Min: 14124.516013
+Median: 15317.114964
+Max: 16332.629890
+
+Prozesse: 96
+Knoten: 1
+srun: job 1657241 queued and waiting for resources
+srun: job 1657241 has been allocated resources
+n x n Matrix mit n = 4096
+Messungen: 10
+in MFLOPS:
+Min: 19105.497638
+Median: 19225.480852
+Max: 19515.602117
+
+Prozesse: 96
+Knoten: 2
+srun: job 1661632 queued and waiting for resources
+srun: job 1661632 has been allocated resources
+n x n Matrix mit n = 4096
+Messungen: 10
+in MFLOPS:
+Min: 11132.436163
+Median: 11293.958644
+Max: 13005.380866
+
+Prozesse: 104
+Knoten: 1
+srun: job 1661915 queued and waiting for resources
+srun: job 1661915 has been allocated resources
+n x n Matrix mit n = 4096
+Messungen: 10
+in MFLOPS:
+Min: 20522.473448
+Median: 20715.984523
+Max: 21073.184415
+
+Prozesse: 104
+Knoten: 2
+srun: job 1662192 queued and waiting for resources
+srun: job 1662192 has been allocated resources
+n x n Matrix mit n = 4096
+Messungen: 10
+in MFLOPS:
+Min: 20626.815344
+Median: 20735.908065
+Max: 20951.907163
+
+

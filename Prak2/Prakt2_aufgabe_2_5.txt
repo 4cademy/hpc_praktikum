@@ -1,0 +1,42 @@
+1)
+MPI - (Message Passing Interface)
+
+Ist ein Interface für Programmierung mit parallelen Prozessen und der Standard für parellele Berechnungen in Hochleistungsrechnern.
+Kann in mehreren Programmiersprachen genutzt werden und hat verschiedene Implementierungen (MPICH, OpenMPI, Vendor).
+Funktioniert nach SPMD-Modell: Viele Prozesse führen den gleichen Programmcode aus.
+
+
+nützliche Funktionen für das Berechnen einer Matrix-Multiplikation:
+
+MPI_Init();
+	- notwendig um MPI-Umgebung zu initialisieren
+MPI_Comm_rank();
+	- ermittelt für jeden Prozess die eigene Prozessnummer
+	- damit kann unterschiedliches Verhalten der Prozesse 	implementiert werden
+MPI_Comm_size(MPI_COMM_WORLD, &size);
+	- durch rank und size lassen sich die Aufgaben 		verschieden skalieren und verteilen zb um load 	balancing zu optimieren
+
+MPI_Recv(), MPI_Send()
+	- sind blockierende, asynchrone Operationen um 	Nachrichtentransfer zwischen Prozessen zu realisieren
+	- alternativ kann auch nicht blockierende Version 	genutzt werden
+
+MPI_Barrier()
+	- wird genutzt um darauf zu warten, dass alle Prozesse
+	ihre Berechnungen und Nachrichtentransfers 	abgeschlossen haben, bevor dir N´Matrixmultiplikation 	abgeschlossen wird.
+
+
+2)
+Machen Sie sich mit Slurm vertraut. Nutzen Sie dafür folgende Webseite: https://doc.zih.tu-dresden.de/hpc-wiki/bin/view/Compendium/Slurm Welche Konfiguration für srun müssen Sie nutzen, um einen Job mit insgesamt 20
+Prozessen gleichmäßig verteilt auf 2 Knoten zu starten?
+
+
+Was ist SLURM:
+Slurm ist ein batch system, dass Ressourcen verwaltet und jobs scheduled. Will man auf dem HPC System einen Job ausführen, spezifiziert man die benötigten Ressourcen, übergibt diese Slurm, welches dann den Job scheduled.
+
+
+Welche Config für srun muss genutzt werden um einen job mit 20 Prozessen gleichmäßig verteilt auf 2 Knoten zu starten?
+
+srun -n 20 -N 2 -t <time> <job_name>
+
+
+

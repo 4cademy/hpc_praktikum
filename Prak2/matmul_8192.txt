@@ -1,0 +1,110 @@
+Prozesse: 32
+Knoten: 1
+n x n Matrix mit n = 8192
+Messungen: 10
+in MFLOPS:
+Min: 4664.475211
+Median: 4671.243755
+Max: 4680.565167
+
+Prozesse: 32
+Knoten: 2
+n x n Matrix mit n = 8192
+Messungen: 10
+in MFLOPS:
+Min: 3204.977741
+Median: 3217.951049
+Max: 3228.937459
+
+Prozesse: 48
+Knoten: 1
+n x n Matrix mit n = 8192
+Messungen: 10
+in MFLOPS:
+Min: 6619.958046
+Median: 6623.367972
+Max: 6643.067666
+
+Prozesse: 48
+Knoten: 2
+n x n Matrix mit n = 8192
+Messungen: 10
+in MFLOPS:
+Min: 3627.417489
+Median: 3713.039373
+Max: 3716.000945
+
+Prozesse: 64
+Knoten: 1
+Prozesse: 64
+Knoten: 1
+n x n Matrix mit n = 8192
+Messungen: 10
+in MFLOPS:
+Min: 6828.837594
+Median: 7423.550279
+Max: 7841.793892
+
+Prozesse: 64
+Knoten: 2
+n x n Matrix mit n = 8192
+Messungen: 10
+in MFLOPS:
+Min: 8607.643175
+Median: 8657.483851
+Max: 8668.663356
+
+Prozesse: 80
+Knoten: 1
+n x n Matrix mit n = 8192
+Messungen: 10
+in MFLOPS:
+Min: 11143.821429
+Median: 11201.462814
+Max: 11238.881879
+
+Prozesse: 80
+Knoten: 2
+n x n Matrix mit n = 8192
+Messungen: 10
+in MFLOPS:
+Min: 9897.246445
+Median: 10322.292419
+Max: 10725.316223
+
+Prozesse: 96
+Knoten: 1
+n x n Matrix mit n = 8192
+Messungen: 10
+in MFLOPS:
+Min: 13174.843755
+Median: 13216.236897
+Max: 13252.464497
+
+Prozesse: 96
+Knoten: 2
+n x n Matrix mit n = 8192
+Messungen: 10
+in MFLOPS:
+Min: 6236.200081
+Median: 7582.958453
+Max: 7614.627142
+
+Prozesse: 104
+Knoten: 1
+n x n Matrix mit n = 8192
+Messungen: 10
+in MFLOPS:
+Min: 14268.695799
+Median: 14307.899237
+Max: 14371.773804
+
+Prozesse: 104
+Knoten: 2
+n x n Matrix mit n = 8192
+Messungen: 10
+in MFLOPS:
+Min: 14339.585577
+Median: 14364.069317
+Max: 14391.928831
+

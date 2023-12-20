@@ -1,0 +1,112 @@
+Prozesse: 1
+Knoten: 1
+srun: job 1638463 queued and waiting for resources
+srun: job 1638463 has been allocated resources
+n x n Matrix mit n = 2048
+Messungen: 10
+in MFLOPS:
+Min: 505.653689
+Median: 516.428644
+Max: 520.039881
+
+Prozesse: 1
+Knoten: 2
+srun: warning: can't run 1 processes on 2 nodes, setting nnodes to 1
+srun: job 1638647 queued and waiting for resources
+srun: job 1638647 has been allocated resources
+n x n Matrix mit n = 2048
+Messungen: 10
+in MFLOPS:
+Min: 502.076641
+Median: 513.852299
+Max: 517.009139
+
+Prozesse: 2
+Knoten: 1
+srun: job 1639104 queued and waiting for resources
+srun: job 1639104 has been allocated resources
+n x n Matrix mit n = 2048
+Messungen: 10
+in MFLOPS:
+Min: 983.594003
+Median: 993.017599
+Max: 1015.670928
+
+
+Prozesse: 2
+Knoten: 2
+srun: job 1639245 queued and waiting for resources
+srun: job 1639245 has been allocated resources
+n x n Matrix mit n = 2048
+Messungen: 10
+in MFLOPS:
+Min: 492.319004
+Median: 507.388141
+Max: 536.495801
+
+Prozesse: 4
+Knoten: 1
+srun: job 1642933 queued and waiting for resources
+srun: job 1642933 has been allocated resources
+n x n Matrix mit n = 2048
+Messungen: 10
+in MFLOPS:
+Min: 1062.964174
+Median: 1129.064142
+Max: 1165.675031
+
+Prozesse: 4
+Knoten: 2
+srun: job 1642940 queued and waiting for resources
+srun: job 1642940 has been allocated resources
+n x n Matrix mit n = 2048
+Messungen: 10
+in MFLOPS:
+Min: 1463.113972
+Median: 1478.033966
+Max: 1496.967605
+
+Prozesse: 8
+Knoten: 1
+srun: job 1642942 queued and waiting for resources
+srun: job 1642942 has been allocated resources
+n x n Matrix mit n = 2048
+Messungen: 10
+in MFLOPS:
+Min: 2196.456227
+Median: 2220.180507
+Max: 2271.697714
+
+Prozesse: 8
+Knoten: 2
+srun: job 1642950 queued and waiting for resources
+srun: job 1642950 has been allocated resources
+n x n Matrix mit n = 2048
+Messungen: 10
+in MFLOPS:
+Min: 2215.272836
+Median: 2233.464189
+Max: 2317.616469
+
+Prozesse: 16
+Knoten: 1
+srun: job 1642962 queued and waiting for resources
+srun: job 1642962 has been allocated resources
+n x n Matrix mit n = 2048
+Messungen: 10
+in MFLOPS:
+Min: 5336.878128
+Median: 5388.526386
+Max: 5427.533778
+
+Prozesse: 16
+Knoten: 2
+srun: job 1643020 queued and waiting for resources
+srun: job 1643020 has been allocated resources
+n x n Matrix mit n = 2048
+Messungen: 10
+in MFLOPS:
+Min: 3040.874094
+Median: 4198.375352
+Max: 4378.105307
+
