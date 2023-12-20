@@ -76,8 +76,6 @@ int main(int argc, char* argv[]) {
         measures[e] = (long double) no_fops / microseconds;
 
     }
-    printf("Function: %s\n", function_names[function]);
-
     qsort( measures, 10, sizeof(long double), compare );
     printf("n x n Matrix mit n = %i\n", n);
     printf("Messungen: %i\n", evals);
