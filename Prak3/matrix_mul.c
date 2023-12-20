@@ -29,11 +29,8 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    int function, matrix_size;
-    //printf("argv[1]: %s\n", argv[1]);
-    function = atoi(argv[1]);
-    //printf("function: %i\n", function);
-    matrix_size= atoi(argv[2]);
+    int matrix_size;
+    matrix_size= atoi(argv[1]);
 
     int n = matrix_size;
     int evals = 10;
