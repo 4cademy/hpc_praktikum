@@ -2,6 +2,7 @@
 #include <sys/time.h>
 #include <stdlib.h>
 #include "functions.h"
+#include <stdbool.h>
 
 #define NORMAL 0
 #define LOOP_UNROLLING 1
@@ -37,6 +38,7 @@ int main(int argc, char* argv[]) {
     float* mat1 = (float*) malloc(n*n*sizeof(float));
     float* mat2 = (float*) malloc(n*n*sizeof(float));
     float* mat_out = malloc(n*n*sizeof(float));
+    float* mat_golden = malloc(n*n*sizeof(float));
 
     
     for (int i = 0; i < n; i++) {
@@ -51,6 +53,7 @@ int main(int argc, char* argv[]) {
         for (int i = 0; i < n; i++) {
             for(int j = 0; j < n; j++) {
                 mat_out[i*n+j] = 0;
+                mat_golden[i*n+j] = 0;
             }
         }
         // actual matrix multiplication
@@ -77,9 +80,27 @@ int main(int argc, char* argv[]) {
     printf("Median: %Lf\n", measures[5]);
     printf("Max: %Lf\n\n", measures[9]);
 
+
+    normal_matrix_mul(mat1, mat2, mat_out, n);
+    bool is_equal = true;
+    for (int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            if (mat_out[i*n+j] != mat_golden[i*n+j]) {
+                is_equal = false;
+                break;
+            }
+        }
+    }
+    if (is_equal) {
+        printf("Matrix multiplication was correct\n");
+    } else {
+        printf("Matrix multiplication was incorrect\n");
+    }
+
     free(mat1);
     free(mat2);
     free(mat_out);
+    free(mat_golden);
 
     return 0;
 }
