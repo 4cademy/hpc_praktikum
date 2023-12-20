@@ -8,13 +8,6 @@
 #define LOOP_SWAP 2
 #define TILING 3
 
-const char * function_names[] = {
-        "normal_matrix_mul",
-        "loop_unrolling",
-        "loop_swap",
-        "tiling_matrix_mul"
-};
-
 int compare( const void* a, const void* b)
 {
     long double int_a = * ( (long double*) a );
@@ -27,15 +20,11 @@ int compare( const void* a, const void* b)
 
 
 int main(int argc, char* argv[]) {
-    if (argc != 3) {
-        printf("Usage: %s <function number> <matrix size>\n", argv[0]);
+    if (argc != 2) {
+        printf("Usage: %s <matrix size>\n", argv[0]);
         return 1;
     }
-    if (atoi(argv[1]) < 0 || atoi(argv[1]) > 4){
-        printf("Use a function through the defined numbers!\n");
-        return 1;
-    }
-    if (atoi(argv[2]) < 0 || atoi(argv[2])%2 != 0){
+    if (atoi(argv[1]) < 0 || atoi(argv[1])%2 != 0){
         printf("Wrong Matrix size <n> needs to fulfill: 2^x = n !\n");
         return 1;
     }
@@ -76,23 +65,7 @@ int main(int argc, char* argv[]) {
         int tile_size = n/tiling_factor;
         gettimeofday(&start, NULL);
 
-        switch (function) {
-            case NORMAL:
-                normal_matrix_mul(mat1, mat2, mat_out, n);
-                break;
-            case LOOP_UNROLLING:
-                loop_unrolling(mat1, mat2, mat_out, n);
-                break;
-            case LOOP_SWAP:
-                loop_swap(mat1, mat2, mat_out, n);
-                break;
-            case TILING:
-                tiling_matrix_mul(mat1, mat2, mat_out, n, tiling_factor, tile_size);
-                break;
-            default:
-                printf("Invalid function!\n");
-                return 1;
-        }
+        openmp_matrix_mul(mat1, mat2, mat_out, n);
 
         gettimeofday(&end, NULL);
         long long microseconds = ((end.tv_sec - start.tv_sec) * 1000*1000 + end.tv_usec - start.tv_usec);
