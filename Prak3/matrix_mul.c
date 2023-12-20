@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
     int n = matrix_size;
     int evals = 5;
     struct timeval start, end;
-    long double measures[10] = {0};
+    long double measures[evals] = {0};
     long double avg_time = 0;
 
     float* mat1 = (float*) malloc(n*n*sizeof(float));
@@ -70,13 +70,22 @@ int main(int argc, char* argv[]) {
         measures[e] = (long double) no_fops / microseconds;
 
     }
-    qsort( measures, 10, sizeof(long double), compare );
+    qsort( measures, evals, sizeof(long double), compare );
     printf("n x n Matrix mit n = %i\n", n);
     printf("Messungen: %i\n", evals);
     printf("in MFLOPS:\n");
     printf("Min: %Lf\n", measures[0]);
-    printf("Median: %Lf\n", measures[5]);
-    printf("Max: %Lf\n\n", measures[9]);
+    int median_index;
+    long double median;
+    if (evals % 2 == 0) {
+        median_index = evals/2;
+        median = measures[median_index];
+    } else {
+        median_index = (evals-1)/2;
+        median = (measures[median_index] + measures[median_index+1])/2;
+    }
+    printf("Median: %Lf\n", median);
+    printf("Max: %Lf\n\n", measures[evals-1]);
 
     free(mat1);
     free(mat2);
