@@ -29,4 +29,12 @@ void openmp_matrix_mul(const float* mat1, const float* mat2, float* mat_out, int
             }
         }
     }
+
+    for (int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            printf("%f ", mat_out[i*n+j]);
+        }
+        printf("\n");
+    }
+
 }
