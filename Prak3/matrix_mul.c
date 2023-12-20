@@ -30,7 +30,7 @@ int main(int argc, char* argv[]) {
     matrix_size= atoi(argv[1]);
 
     int n = matrix_size;
-    int evals = 1;
+    int evals = 5;
     struct timeval start, end;
     long double measures[10] = {0};
     long double avg_time = 0;
