@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
     int n = matrix_size;
     int evals = 5;
     struct timeval start, end;
-    (long double)* measures = malloc(evals*sizeof(long double));
+    (long double)* measures = (long double) malloc(evals*sizeof(long double));
     long double avg_time = 0;
 
     float* mat1 = (float*) malloc(n*n*sizeof(float));
