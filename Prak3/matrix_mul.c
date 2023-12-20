@@ -24,10 +24,6 @@ int main(int argc, char* argv[]) {
         printf("Usage: %s <matrix size>\n", argv[0]);
         return 1;
     }
-    if (atoi(argv[1]) < 0 || atoi(argv[1])%2 != 0){
-        printf("Wrong Matrix size <n> needs to fulfill: 2^x = n !\n");
-        return 1;
-    }
 
     int matrix_size;
     matrix_size= atoi(argv[1]);
