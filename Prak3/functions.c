@@ -21,7 +21,7 @@ void normal_matrix_mul(const float* mat1, const float* mat2, float* mat_out, int
 void openmp_matrix_mul(const float* mat1, const float* mat2, float* mat_out, int n) {
 #pragma omp target data map(to:n,mat1[0:n],mat2[0:n]) map(from:mat_out[0:n])
     {
-#pragma omp target teams distribute parallel for collapse(2)
+#pragma omp target teams distribute parallel for
         for (int i = 0; i < n; i++) {
             for(int j = 0; j < n; j++) {
                 mat_out[i*n+j] = mat1[i*n] * mat2[j];
