@@ -81,6 +81,15 @@ int main(int argc, char* argv[]) {
     printf("Max: %Lf\n\n", measures[9]);
 
 
+    for (int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            printf("%f ", mat_out[i*n+j]);
+        }
+        printf("\n");
+    }
+
+    printf("\n");
+
     normal_matrix_mul(mat1, mat2, mat_out, n);
     bool is_equal = true;
     for (int i = 0; i < n; i++) {
