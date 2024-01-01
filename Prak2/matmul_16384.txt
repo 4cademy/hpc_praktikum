@@ -1,0 +1,143 @@
+Prozesse: 104
+Knoten: 1
+srun: job 1638234 queued and waiting for resources
+srun: job 1638234 has been allocated resources
+n x n Matrix mit n = 16384
+Messungen: 10
+in MFLOPS:
+Min: 12166.668343
+Median: 12172.367293
+Max: 12177.534672
+
+Prozesse: 104
+Knoten: 2
+srun: job 1639959 queued and waiting for resources
+srun: job 1639959 has been allocated resources
+n x n Matrix mit n = 16384
+Messungen: 10
+in MFLOPS:
+Min: 7825.369169
+Median: 7878.339021
+Max: 7900.576028
+
+Prozesse: 96
+Knoten: 1
+srun: job 1643244 queued and waiting for resources
+srun: job 1643244 has been allocated resources
+n x n Matrix mit n = 16384
+Messungen: 10
+in MFLOPS:
+Min: 11470.503551
+Median: 11490.123802
+Max: 11498.207830
+
+Prozesse: 96
+Knoten: 2
+srun: job 1642037 queued and waiting for resources
+srun: job 1642037 has been allocated resources
+n x n Matrix mit n = 16384
+Messungen: 10
+in MFLOPS:
+Min: 11108.131299
+Median: 11117.733774
+Max: 11126.995280
+
+Prozesse: 80
+Knoten: 1
+srun: job 1649929 queued and waiting for resources
+srun: job 1649929 has been allocated resources
+n x n Matrix mit n = 16384
+Messungen: 10
+in MFLOPS:
+Min: 9415.974499
+Median: 9420.472799
+Max: 9427.451143
+
+Prozesse: 80
+Knoten: 2
+srun: job 1650627 queued and waiting for resources
+srun: job 1650627 has been allocated resources
+n x n Matrix mit n = 16384
+Messungen: 10
+in MFLOPS:
+Min: 9300.741502
+Median: 9311.126922
+Max: 9332.997245
+
+Prozesse: 64
+Knoten: 1
+srun: job 1651122 queued and waiting for resources
+srun: job 1651122 has been allocated resources
+n x n Matrix mit n = 16384
+Messungen: 10
+in MFLOPS:
+Min: 6540.104739
+Median: 6878.027267
+Max: 7730.130893
+
+Prozesse: 64
+Knoten: 2
+srun: job 1653285 queued and waiting for resources
+srun: job 1653285 has been allocated resources
+n x n Matrix mit n = 16384
+Messungen: 10
+in MFLOPS:
+Min: 5606.430045
+Median: 6788.370457
+Max: 7407.664086
+
+Prozesse: 48
+Knoten: 1
+srun: job 1660779 queued and waiting for resources
+srun: job 1660779 has been allocated resources
+n x n Matrix mit n = 16384
+Messungen: 10
+in MFLOPS:
+Min: 5630.033834
+Median: 5663.449714
+Max: 5691.780822
+
+Prozesse: 48
+Knoten: 2
+srun: job 1662732 queued and waiting for resources
+srun: job 1662732 has been allocated resources
+n x n Matrix mit n = 16384
+Messungen: 10
+in MFLOPS:
+Min: 5029.247977
+Median: 5349.613695
+Max: 5549.704329
+
+Prozesse: 48
+Knoten: 2
+srun: job 1667244 queued and waiting for resources
+srun: job 1667244 has been allocated resources
+n x n Matrix mit n = 16384
+Messungen: 10
+in MFLOPS:
+Min: 4342.633144
+Median: 4427.193939
+Max: 4462.772780
+
+Prozesse: 32
+Knoten: 1
+srun: job 1654253 queued and waiting for resources
+srun: job 1654253 has been allocated resources
+n x n Matrix mit n = 16384
+Messungen: 10
+in MFLOPS:
+Min: 1394.885693
+Median: 3535.264952
+Max: 3673.606336
+
+Prozesse: 32
+Knoten: 2
+srun: job 1657373 queued and waiting for resources
+srun: job 1657373 has been allocated resources
+n x n Matrix mit n = 16384
+Messungen: 10
+in MFLOPS:
+Min: 3349.421482
+Median: 3392.662404
+Max: 3550.113237
+
