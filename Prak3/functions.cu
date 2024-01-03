@@ -34,30 +34,36 @@ void normal_matrix_mul(const float* mat1, const float* mat2, float* mat_out, int
 // }
 __global__ void matrixMul( float *mat_out, float *mat1, float *mat2, int N )
 {
-//
-//    _global__ void saxpy(int N, float a, float *x, float *y) { 
-//        for (   int i = blockIdx.x * blockDim.x + threadIdx.x; // global thread ID (in x)
-//                i < N; i += blockDim.x * gridDim.x ) { // stride of the loop
-//                y[i] = a * x[i] + y[i];
-//    }
-//}
-//
-//    int row = blockIdx.y * blockDim.y + threadIdx.y;
-//    int col = blockIdx.x * blockDim.x + threadIdx.x;
-//
-//    if( row < N && col < N )
-//    {
-//        float tmpSum = 0;
-//
-//        for (int i = 0; i < N; i++)
-//        {
-//            tmpSum += a[row * N + i] * b[i * N + col];
-//        }
-//
-//        c[row * N + col] = tmpSum;
-//    }
-    for(int i = 0; i < N; i++){
-        mat_out[i]= 2;
+    int width = N;
+    int column = blockIdx.x * blockDim.x + threadIdx.x;
+    int row = blockIdx.y * blockDim.y + threadIdx.y;
+
+    for (int i = column; i < width; i += blockDim.x * gridDim.x) {
+        for (int j = row; j < width; j += blockDim.y * gridDim.y) {
+            float sum = 0;
+            for (int k = 0; k < width; ++k) {
+                sum += mat1[j * width + k] * mat2[k * width + i];
+            }
+            mat_out[j * width + i] = sum;
+        }
+    }
+
+}
+
+__global__ void matrixMul_test( float *mat_out, float *mat1, float *mat2, int N )
+{
+    int width = N;
+    int column = blockIdx.x * blockDim.x + threadIdx.x;
+    int row = blockIdx.y * blockDim.y + threadIdx.y;
+
+    for (int i = column; i < width; i += blockDim.x * gridDim.x) {
+        for (int j = row; j < width; j += blockDim.y * gridDim.y) {
+            float sum = 0;
+            for (int k = 0; k < width; ++k) {
+                sum += mat1[j * width + k] * mat2[k * width + i];
+            }
+            mat_out[j * width + i] = 2;
+        }
     }
 
 
@@ -77,8 +83,15 @@ void cuda_matrix_mul(const float* mat1, const float* mat2, float* mat_out, int n
     cudaMemcpy(d_mat1, mat1, size, cudaMemcpyHostToDevice);
     cudaMemcpy(d_mat2, mat2, size, cudaMemcpyHostToDevice);
 
-    //dim3 dimGrid(ceil(n/32.0), ceil(n/32.0), 1);
-    //dim3 dimBlock(32, 32, 1);
+    //TODO: delete print
+    //printf("after giving to function\n Should be all 0\n");
+    //for(int i = 0; i < n; i++) {
+    //    for(int j = 0; j < n; j++) {
+    //        printf("%f ", mat_out[i*n + j]);
+    //    }
+    //    printf("\n");
+    //}
+
 
     int devId;
     cudaGetDevice(&devId);
@@ -87,10 +100,36 @@ void cuda_matrix_mul(const float* mat1, const float* mat2, float* mat_out, int n
     cudaDeviceGetAttribute(&numSMs, cudaDevAttrMultiProcessorCount, devId);
     // cudaDeviceGetAttribute(&numSMs, cudaDevAttrMultiProcessorCount, devid);
     // matrixMul<<<32*numSMs, 256>>>(d_mat_out, d_mat1, d_mat2, n);
-    int elements = n*n;
-    matrixMul<<<32*numSMs, 1>>>(d_mat_out, d_mat1, d_mat2, n);
+    matrixMul<<<32*numSMs, 1024>>>(d_mat_out, d_mat1, d_mat2, n);
 
     cudaMemcpy(mat_out, d_mat_out, size, cudaMemcpyDeviceToHost);
+
+    //TODO: delete print statements
+    // printf("mat1\n should have initialized matrix!\n");
+    // for(int i = 0; i < n; i++) {
+    //     for(int j = 0; j < n; j++) {
+    //         printf("%f ", mat1[i*n + j]);
+    //     }
+    //     printf("\n");
+    // }
+    //
+    // printf("mat2\n should have initialized matrix!\n");
+    // for(int i = 0; i < n; i++) {
+    //     for(int j = 0; j < n; j++) {
+    //         printf("%f ", mat2[i*n + j]);
+    //     }
+    //     printf("\n");
+    // }
+
+
+    // printf("after giving back from gpu\n Should have result of computation!\n");
+    // for(int i = 0; i < n; i++) {
+    //     for(int j = 0; j < n; j++) {
+    //         printf("%f ", mat_out[i*n + j]);
+    //     }
+    //     printf("\n");
+    // }
+
 
     cudaFree(d_mat1);
     cudaFree(d_mat2);

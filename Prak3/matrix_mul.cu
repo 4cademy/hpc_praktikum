@@ -48,6 +48,8 @@ int main(int argc, char* argv[]) {
         }
     }
 
+    
+
     for (int e = 0; e < evals; e++) {
         // reset output matrix
         for (int i = 0; i < n; i++) {
@@ -56,10 +58,22 @@ int main(int argc, char* argv[]) {
                 mat_golden[i*n+j] = 0;
             }
         }
+
+        //TODO: delete print
+        //printf("before giving to function\n Should be all 0\n");
+        //for(int i = 0; i < n; i++) {
+        //    for(int j = 0; j < n; j++) {
+        //        printf("%f ", mat_out[i*n + j]);
+        //    }
+        //    printf("\n");
+        //}
+
+
         // actual matrix multiplication
         gettimeofday(&start, NULL);
 
-        cuda_matrix_mul(mat1, mat2, mat_out, n);
+
+        cuda_matrix_mul( mat1, mat2, mat_out, n);
 
         gettimeofday(&end, NULL);
         long long microseconds = ((end.tv_sec - start.tv_sec) * 1000*1000 + end.tv_usec - start.tv_usec);
@@ -86,6 +100,8 @@ int main(int argc, char* argv[]) {
     }
     printf("Median: %Lf\n", median);
     printf("Max: %Lf\n\n", measures[evals-1]);
+
+
 
     free(mat1);
     free(mat2);
