@@ -9,6 +9,6 @@ void normal_matrix_mul(const float* mat1, const float* mat2, float* mat_out, int
 
 void openmp_matrix_mul(const float* mat1, const float* mat2, float* mat_out, int n);
 
-
+void cuda_matrix_mul(const float* mat1, const float* mat2, float* mat_out, int n);
 
 #endif //HPC_PRAKTIKUM_FUNCTIONS_H

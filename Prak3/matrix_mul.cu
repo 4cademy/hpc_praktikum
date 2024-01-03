@@ -37,8 +37,8 @@ int main(int argc, char* argv[]) {
 
     float* mat1 = (float*) malloc(n*n*sizeof(float));
     float* mat2 = (float*) malloc(n*n*sizeof(float));
-    float* mat_out = malloc(n*n*sizeof(float));
-    float* mat_golden = malloc(n*n*sizeof(float));
+    float* mat_out = (float*)malloc(n*n*sizeof(float));
+    float* mat_golden =(float*) malloc(n*n*sizeof(float));
 
     
     for (int i = 0; i < n; i++) {
@@ -59,7 +59,7 @@ int main(int argc, char* argv[]) {
         // actual matrix multiplication
         gettimeofday(&start, NULL);
 
-        openmp_matrix_mul(mat1, mat2, mat_out, n);
+        cuda_matrix_mul(mat1, mat2, mat_out, n);
 
         gettimeofday(&end, NULL);
         long long microseconds = ((end.tv_sec - start.tv_sec) * 1000*1000 + end.tv_usec - start.tv_usec);
