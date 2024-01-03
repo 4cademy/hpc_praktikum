@@ -7,6 +7,9 @@ echo "module switch modenv/ml"
 sleep 2
 module load NVHPC
 echo "module load NVHPC"
-sleep 5
+sleep 2
 module load GCC/8.3.0
 echo "module load GCC/8.3.0"
+sleep 2
+module load NVHPC
+echo "module load NVHPC"

@@ -80,11 +80,15 @@ void cuda_matrix_mul(const float* mat1, const float* mat2, float* mat_out, int n
     //dim3 dimGrid(ceil(n/32.0), ceil(n/32.0), 1);
     //dim3 dimBlock(32, 32, 1);
 
+    int devId;
+    cudaGetDevice(&devId);
+
     int numSMs;
-    cudaDeviceGetAttribute(&numSMs, cudaDevAttrMultiProcessorCount, 1);
+    cudaDeviceGetAttribute(&numSMs, cudaDevAttrMultiProcessorCount, devId);
     // cudaDeviceGetAttribute(&numSMs, cudaDevAttrMultiProcessorCount, devid);
     // matrixMul<<<32*numSMs, 256>>>(d_mat_out, d_mat1, d_mat2, n);
-    matrixMul<<<1, 1>>>(d_mat_out, d_mat1, d_mat2, n);
+    int elements = n*n;
+    matrixMul<<<32*numSMs, 1>>>(d_mat_out, d_mat1, d_mat2, n);
 
     cudaMemcpy(mat_out, d_mat_out, size, cudaMemcpyDeviceToHost);
 
