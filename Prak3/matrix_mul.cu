@@ -25,8 +25,6 @@ int main(int argc, char* argv[]) {
         printf("Usage: %s <matrix size>\n", argv[0]);
         return 1;
     }
-    //"warming up the GPU
-    cudaFree(0);
 
     int matrix_size;
     matrix_size= atoi(argv[1]);
