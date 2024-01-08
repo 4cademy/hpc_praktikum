@@ -40,21 +40,28 @@ int main(int argc, char* argv[]) {
     float* mat_out;
     float* mat_golden;
 
+    cudaError_t err;
 
-    cudaMallocManaged((void**)&mat1, n*n*sizeof(float));
-    cudaMallocManaged((void**)&mat2, n*n*sizeof(float));
-    cudaMallocManaged((void**)&mat_out, n*n*sizeof(float));
-    cudaMallocManaged((void**)&mat_golden, n*n*sizeof(float));
-    
-    printf("before giving to function\n Should be all 0\n");
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < n; j++) {
-                printf("%f ", mat_out[i*n + j]);
-            }
-            printf("\n");
-        }
-
-
+    err = cudaMallocManaged((void**)&mat1, n*n*sizeof(float));
+    if (err != cudaSuccess) {
+        printf("Error allocating memory for mat1: %s\n", cudaGetErrorString(err));
+        return 1;
+    }
+    err = cudaMallocManaged((void**)&mat2, n*n*sizeof(float));
+    if (err != cudaSuccess) {
+        printf("Error allocating memory for mat1: %s\n", cudaGetErrorString(err));
+        return 1;
+    }
+    err = cudaMallocManaged((void**)&mat_out, n*n*sizeof(float));
+    if (err != cudaSuccess) {
+        printf("Error allocating memory for mat1: %s\n", cudaGetErrorString(err));
+        return 1;
+    }
+    err = cudaMallocManaged((void**)&mat_golden, n*n*sizeof(float));
+    if (err != cudaSuccess) {
+        printf("Error allocating memory for mat1: %s\n", cudaGetErrorString(err));
+        return 1;
+    };
 
     for (int i = 0; i < n; i++) {
         for(int j = 0; j < n; j++) {
@@ -122,10 +129,11 @@ int main(int argc, char* argv[]) {
 
 
 
-    free(mat1);
-    free(mat2);
-    free(mat_out);
-    free(mat_golden);
+    cudaFree(mat1);
+    cudaFree(mat2);
+    cudaFree(mat_out);
+    cudaFree(mat_golden);
+    free(measures);
 
     return 0;
 }
