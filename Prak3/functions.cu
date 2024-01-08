@@ -69,17 +69,17 @@ __global__ void matrixMul_test( float *mat_out, float *mat1, float *mat2, int N 
 
 }
 
-void cuda_matrix_mul(const float* mat1, const float* mat2, float* mat_out, int n) {
-    int size = n*n*sizeof(float);
+void cuda_matrix_mul(float* mat1, float* mat2, float* mat_out, int n) {
+    //int size = n*n*sizeof(float);
 
     //TODO: delete print
-    //printf("after giving to function\n Should be all 0\n");
-    //for(int i = 0; i < n; i++) {
-    //    for(int j = 0; j < n; j++) {
-    //        printf("%f ", mat_out[i*n + j]);
-    //    }
-    //    printf("\n");
-    //}
+    printf("after giving to function\n Should be all 0\n");
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            printf("%f ", mat_out[i*n + j]);
+        }
+        printf("\n");
+    }
 
 
     int devId;
@@ -89,25 +89,24 @@ void cuda_matrix_mul(const float* mat1, const float* mat2, float* mat_out, int n
     cudaDeviceGetAttribute(&numSMs, cudaDevAttrMultiProcessorCount, devId);
     // cudaDeviceGetAttribute(&numSMs, cudaDevAttrMultiProcessorCount, devid);
     // matrixMul<<<32*numSMs, 256>>>(d_mat_out, d_mat1, d_mat2, n);
-    matrixMul<<<32*numSMs, 1024>>>(d_mat_out, d_mat1, d_mat2, n);
+    matrixMul<<<32*numSMs, 1024>>>(mat_out, mat1, mat2, n);
 
     //TODO: delete print statements
-    // printf("mat1\n should have initialized matrix!\n");
-    // for(int i = 0; i < n; i++) {
-    //     for(int j = 0; j < n; j++) {
-    //         printf("%f ", mat1[i*n + j]);
-    //     }
-    //     printf("\n");
-    // }
-    //
-    // printf("mat2\n should have initialized matrix!\n");
-    // for(int i = 0; i < n; i++) {
-    //     for(int j = 0; j < n; j++) {
-    //         printf("%f ", mat2[i*n + j]);
-    //     }
-    //     printf("\n");
-    // }
-
+     printf("mat1\n should have initialized matrix!\n");
+     for(int i = 0; i < n; i++) {
+         for(int j = 0; j < n; j++) {
+             printf("%f ", mat1[i*n + j]);
+         }
+         printf("\n");
+     }
+    
+     printf("mat2\n should have initialized matrix!\n");
+     for(int i = 0; i < n; i++) {
+         for(int j = 0; j < n; j++) {
+             printf("%f ", mat2[i*n + j]);
+         }
+         printf("\n");
+     } 
 
     // printf("after giving back from gpu\n Should have result of computation!\n");
     // for(int i = 0; i < n; i++) {

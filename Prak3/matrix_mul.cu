@@ -46,6 +46,16 @@ int main(int argc, char* argv[]) {
     cudaMallocManaged((void**)&mat_out, n*n*sizeof(float));
     cudaMallocManaged((void**)&mat_golden, n*n*sizeof(float));
     
+    printf("before giving to function\n Should be all 0\n");
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++) {
+                printf("%f ", mat_out[i*n + j]);
+            }
+            printf("\n");
+        }
+
+
+
     for (int i = 0; i < n; i++) {
         for(int j = 0; j < n; j++) {
             mat1[i*n+j] = (float)(i+j);
@@ -66,13 +76,13 @@ int main(int argc, char* argv[]) {
         cudaMemPrefetchAsync(mat_golden, n*n*sizeof(float), 0); // to GPU
 
         //TODO: delete print
-        //printf("before giving to function\n Should be all 0\n");
-        //for(int i = 0; i < n; i++) {
-        //    for(int j = 0; j < n; j++) {
-        //        printf("%f ", mat_out[i*n + j]);
-        //    }
-        //    printf("\n");
-        //}
+        printf("before giving to function\n Should be all 0\n");
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++) {
+                printf("%f ", mat_out[i*n + j]);
+            }
+            printf("\n");
+        }
 
 
         // actual matrix multiplication
