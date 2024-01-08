@@ -35,11 +35,16 @@ int main(int argc, char* argv[]) {
     long double* measures = (long double*) malloc(evals*sizeof(long double));
     long double avg_time = 0;
 
-    float* mat1 = (float*) malloc(n*n*sizeof(float));
-    float* mat2 = (float*) malloc(n*n*sizeof(float));
-    float* mat_out = (float*)malloc(n*n*sizeof(float));
-    float* mat_golden =(float*) malloc(n*n*sizeof(float));
+    float* mat1;
+    float* mat2;
+    float* mat_out;
+    float* mat_golden;
 
+
+    cudaMallocManaged((void**)&mat1, n*n*sizeof(float));
+    cudaMallocManaged((void**)&mat2, n*n*sizeof(float));
+    cudaMallocManaged((void**)&mat_out, n*n*sizeof(float));
+    cudaMallocManaged((void**)&mat_golden, n*n*sizeof(float));
     
     for (int i = 0; i < n; i++) {
         for(int j = 0; j < n; j++) {
@@ -47,8 +52,6 @@ int main(int argc, char* argv[]) {
             mat2[i*n+j] = (float)(i+j);
         }
     }
-
-    
 
     for (int e = 0; e < evals; e++) {
         // reset output matrix
@@ -58,6 +61,9 @@ int main(int argc, char* argv[]) {
                 mat_golden[i*n+j] = 0;
             }
         }
+
+        cudaMemPrefetchAsync(mat_out, n*n*sizeof(float), 0); // to GPU
+        cudaMemPrefetchAsync(mat_golden, n*n*sizeof(float), 0); // to GPU
 
         //TODO: delete print
         //printf("before giving to function\n Should be all 0\n");
@@ -74,6 +80,9 @@ int main(int argc, char* argv[]) {
 
 
         cuda_matrix_mul( mat1, mat2, mat_out, n);
+
+        cudaMemPrefetchAsync(mat_out, n*n*sizeof(float), cudaCpuDeviceId); // back to CPU after computation
+
 
         gettimeofday(&end, NULL);
         long long microseconds = ((end.tv_sec - start.tv_sec) * 1000*1000 + end.tv_usec - start.tv_usec);

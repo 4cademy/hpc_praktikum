@@ -72,17 +72,6 @@ __global__ void matrixMul_test( float *mat_out, float *mat1, float *mat2, int N 
 void cuda_matrix_mul(const float* mat1, const float* mat2, float* mat_out, int n) {
     int size = n*n*sizeof(float);
 
-    float* d_mat1;
-    float* d_mat2;
-    float* d_mat_out;
-
-    cudaMalloc((void**)&d_mat1, size);
-    cudaMalloc((void**)&d_mat2, size);
-    cudaMalloc((void**)&d_mat_out, size);
-
-    cudaMemcpy(d_mat1, mat1, size, cudaMemcpyHostToDevice);
-    cudaMemcpy(d_mat2, mat2, size, cudaMemcpyHostToDevice);
-
     //TODO: delete print
     //printf("after giving to function\n Should be all 0\n");
     //for(int i = 0; i < n; i++) {
@@ -101,8 +90,6 @@ void cuda_matrix_mul(const float* mat1, const float* mat2, float* mat_out, int n
     // cudaDeviceGetAttribute(&numSMs, cudaDevAttrMultiProcessorCount, devid);
     // matrixMul<<<32*numSMs, 256>>>(d_mat_out, d_mat1, d_mat2, n);
     matrixMul<<<32*numSMs, 1024>>>(d_mat_out, d_mat1, d_mat2, n);
-
-    cudaMemcpy(mat_out, d_mat_out, size, cudaMemcpyDeviceToHost);
 
     //TODO: delete print statements
     // printf("mat1\n should have initialized matrix!\n");
@@ -130,8 +117,4 @@ void cuda_matrix_mul(const float* mat1, const float* mat2, float* mat_out, int n
     //     printf("\n");
     // }
 
-
-    cudaFree(d_mat1);
-    cudaFree(d_mat2);
-    cudaFree(d_mat_out);
 }
