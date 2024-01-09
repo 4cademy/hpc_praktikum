@@ -25,8 +25,6 @@ int main(int argc, char* argv[]) {
         printf("Usage: %s <matrix size>\n", argv[0]);
         return 1;
     }
-    //"warming up the GPU
-    cudaFree(0);
 
     int matrix_size;
     matrix_size= atoi(argv[1]);
@@ -37,10 +35,11 @@ int main(int argc, char* argv[]) {
     long double* measures = (long double*) malloc(evals*sizeof(long double));
     long double avg_time = 0;
 
-    float* mat1;
+
     float* mat2;
     float* mat_out;
     float* mat_golden;
+    float* mat1;
 
     cudaError_t err;
 
@@ -51,17 +50,17 @@ int main(int argc, char* argv[]) {
     }
     err = cudaMallocManaged((void**)&mat2, n*n*sizeof(float));
     if (err != cudaSuccess) {
-        printf("Error allocating memory for mat1: %s\n", cudaGetErrorString(err));
+        printf("Error allocating memory for mat2: %s\n", cudaGetErrorString(err));
         return 1;
     }
     err = cudaMallocManaged((void**)&mat_out, n*n*sizeof(float));
     if (err != cudaSuccess) {
-        printf("Error allocating memory for mat1: %s\n", cudaGetErrorString(err));
+        printf("Error allocating memory for mat_out: %s\n", cudaGetErrorString(err));
         return 1;
     }
     err = cudaMallocManaged((void**)&mat_golden, n*n*sizeof(float));
     if (err != cudaSuccess) {
-        printf("Error allocating memory for mat1: %s\n", cudaGetErrorString(err));
+        printf("Error allocating memory for mat_golden: %s\n", cudaGetErrorString(err));
         return 1;
     };
 
