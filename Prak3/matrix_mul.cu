@@ -30,7 +30,7 @@ int main(int argc, char* argv[]) {
     matrix_size= atoi(argv[1]);
 
     int n = matrix_size;
-    int evals = 5;
+    int evals = 1;
     struct timeval start, end;
     long double* measures = (long double*) malloc(evals*sizeof(long double));
     long double avg_time = 0;
@@ -72,6 +72,7 @@ int main(int argc, char* argv[]) {
     }
 
     for (int e = 0; e < evals; e++) {
+        //printf("NEW EVAL cycle");
         // reset output matrix
         for (int i = 0; i < n; i++) {
             for(int j = 0; j < n; j++) {
@@ -81,16 +82,16 @@ int main(int argc, char* argv[]) {
         }
 
         cudaMemPrefetchAsync(mat_out, n*n*sizeof(float), 0); // to GPU
-        cudaMemPrefetchAsync(mat_golden, n*n*sizeof(float), 0); // to GPU
+        //cudaMemPrefetchAsync(mat_golden, n*n*sizeof(float), 0); // to GPU
 
         //TODO: delete print
-        printf("before giving to function\n Should be all 0\n");
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < n; j++) {
-                printf("%f ", mat_out[i*n + j]);
-            }
-            printf("\n");
-        }
+        //printf("mat_out before giving to function\n Should be all 0\n");
+        //for(int i = 0; i < n; i++) {
+        //    for(int j = 0; j < n; j++) {
+        //        printf("%f ", mat_out[i*n + j]);
+        //    }
+        //    printf("\n");
+        //}
 
 
         // actual matrix multiplication
@@ -100,7 +101,14 @@ int main(int argc, char* argv[]) {
         cuda_matrix_mul( mat1, mat2, mat_out, n);
 
         cudaMemPrefetchAsync(mat_out, n*n*sizeof(float), cudaCpuDeviceId); // back to CPU after computation
-
+        cudaDeviceSynchronize();
+        //printf("mat_out after computation\n Should have actual result\n");
+        //for(int i = 0; i < n; i++) {
+        //    for(int j = 0; j < n; j++) {
+        //        printf("%f ", mat_out[i*n + j]);
+        //    }
+        //    printf("\n");
+        //}
 
         gettimeofday(&end, NULL);
         long long microseconds = ((end.tv_sec - start.tv_sec) * 1000*1000 + end.tv_usec - start.tv_usec);
@@ -109,12 +117,13 @@ int main(int argc, char* argv[]) {
         long long tmp = (long long)n;
         long long no_fops = tmp * tmp * (2 * tmp - 1);
         measures[e] = (long double) no_fops / microseconds;
-
+        //measures[e] = microseconds;
     }
     qsort( measures, evals, sizeof(long double), compare );
     printf("n x n Matrix mit n = %i\n", n);
     printf("Messungen: %i\n", evals);
-    printf("in MFLOPS:\n");
+    //printf("in MFLOPS:\n");
+    printf("in Mikroseconds:\n");
     printf("Min: %Lf\n", measures[0]);
     int median_index;
     long double median;
